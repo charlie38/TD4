@@ -22,8 +22,11 @@ def dowload_all_page():
         file.close()
 
 def scraping_all_page():
+    dictTournoi = {}
+    id = INITIAL_ID
     for chemin in glob.glob("sample/*"):
         basename = os.path.splitext(os.path.basename(chemin))
+        print(basename)
         file = open(chemin, encoding="utf8", errors='ignore')
         soup = BeautifulSoup(file.read(), 'html.parser')
         file.close
@@ -31,8 +34,8 @@ def scraping_all_page():
         text = []
         for word in allTd:
             text.append(word.text)
-        dict = {}
         text = list(filter(None,text))
+        dict = {}
         for word in text:
             if len(word)==0:
                 print(word)
@@ -42,10 +45,13 @@ def scraping_all_page():
                         inext = text.index(word)+1
                         word = word.strip(':')
                         dict[word]= text[inext]
+        
+        dictTournoi[id] = dict
+        id += 1
 
-        out_file = open("json/"+basename[0]+".json", "w", encoding="utf-8") 
-        json.dump(dict, out_file, indent = 4, sort_keys = False, ensure_ascii=False) 
-        out_file.close()
+    out_file = open("JSON.json", "w", encoding="utf-8") 
+    json.dump(dictTournoi, out_file, indent = 4, sort_keys = False, ensure_ascii=False) 
+    out_file.close()
 
 dowload_all_page()
 scraping_all_page()
