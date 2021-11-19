@@ -3,28 +3,20 @@ import json
 import urllib
 
 from os import read
-from boilerpy3.filters import LabelToContentFilter
 from bs4 import BeautifulSoup
-from boilerpy3 import extractors
 
+def dowload_all_page():
+    for i in range(0,10):
+        link = 'http://echecs.asso.fr/FicheTournoi.aspx?Ref='+str(i)+''
+        page = urllib.request.urlopen(link)
+        soup = BeautifulSoup(page.read(), 'html.parser')
+        file = open("sample/tournoi"+str(i)+".html","w",encoding="utf8", errors='ignore')
+        file.write(str(soup))
+        file.close()
 
-def get_paragraphs_BP3(str_text):
-  BP_extractor = extractors.DefaultExtractor()    
-  text_det = BP_extractor.get_content(str_text)
-  return re.split("\n",text_det)
+dowload_all_page()
 
-j = 1
-
-for i in range(0,10):
-    link = 'http://echecs.asso.fr/FicheTournoi.aspx?Ref='+str(i)+''
-    f = urllib.request.urlopen(link)           
-    soup = BeautifulSoup(f.read(), 'html.parser')
-    file = open("sample/sample+"+str(j)+".html","w",encoding="utf8", errors='ignore')
-    file.write(str(soup))
-    file.close()
-    j += 1 
-
-file = open("Fédération Française des Échecs.html")
+"""file = open("Fédération Française des Échecs.html")
 soup = BeautifulSoup(file.read(), 'html.parser')
 
 #print(str(soup))
@@ -52,4 +44,4 @@ print(dict1)
 
 out_file = open("test1.json", "w") 
 json.dump(dict1, out_file, indent = 4, sort_keys = False, ensure_ascii=False) 
-out_file.close()
+out_file.close()"""
