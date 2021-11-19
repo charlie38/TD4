@@ -1,6 +1,6 @@
 import re
 import json
-# import urllib
+import urllib
 
 from os import read
 from boilerpy3.filters import LabelToContentFilter
@@ -12,6 +12,17 @@ def get_paragraphs_BP3(str_text):
   BP_extractor = extractors.DefaultExtractor()    
   text_det = BP_extractor.get_content(str_text)
   return re.split("\n",text_det)
+
+j = 1
+
+for i in range(0,10):
+    link = 'http://echecs.asso.fr/FicheTournoi.aspx?Ref='+str(i)+''
+    f = urllib.request.urlopen(link)           
+    soup = BeautifulSoup(f.read(), 'html.parser')
+    file = open("sample+"+str(j)+".html","w",encoding="utf8", errors='ignore')
+    file.write(str(soup))
+    file.close()
+    j += 1 
 
 file = open("Fédération Française des Échecs.html")
 soup = BeautifulSoup(file.read(), 'html.parser')
