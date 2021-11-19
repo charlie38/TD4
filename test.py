@@ -1,6 +1,7 @@
 import re
 import json
 import urllib
+import glob
 
 from os import read
 from bs4 import BeautifulSoup
@@ -14,7 +15,21 @@ def dowload_all_page():
         file.write(str(soup))
         file.close()
 
+def scraping_all_page():
+    dir = {}
+    i = 0
+    for chemin in glob.glob("sample/*"):
+        file = open(chemin, encoding="utf8", errors='ignore')
+        soup = BeautifulSoup(file.read(), 'html.parser')
+        file.close
+        text = soup.find_all("td")[i].text
+        print(text)
+        i = i + 1
+
+
+
 dowload_all_page()
+scraping_all_page()
 
 """file = open("Fédération Française des Échecs.html")
 soup = BeautifulSoup(file.read(), 'html.parser')
