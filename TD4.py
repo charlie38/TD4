@@ -43,7 +43,7 @@ def scraping_all_page():
                 if word is not text[-1]:
                     if ':' in word:
                         inext = text.index(word)+1
-                        word = word.strip(':')
+                        word = word.strip(": ")
                         dict[word]= text[inext]
         
         dictTournoi[id] = dict
