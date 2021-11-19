@@ -19,7 +19,7 @@ for i in range(0,10):
     link = 'http://echecs.asso.fr/FicheTournoi.aspx?Ref='+str(i)+''
     f = urllib.request.urlopen(link)           
     soup = BeautifulSoup(f.read(), 'html.parser')
-    file = open("sample+"+str(j)+".html","w",encoding="utf8", errors='ignore')
+    file = open("sample/sample+"+str(j)+".html","w",encoding="utf8", errors='ignore')
     file.write(str(soup))
     file.close()
     j += 1 
